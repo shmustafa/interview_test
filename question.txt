@@ -21,3 +21,33 @@ properly.
 
 ANSWER BELOW THIS LINE
 ===============================================================================
+
+One issue that can happen in this case is `order data inconsistency`.  e.g, 
+
+
+User A and User B both are buying Product X at the same time.  
+
+Both will check that they have there required quantity available at the same time and since 
+there are seperate processes checking this validation, both of these validations will pass.
+
+Although, chances of it happening is quite low but it is still a possibility. 
+
+*Solution:*
+
+To solve it, first we would have ask ourself: What is more important for us:
+
+1) Data Order Consistency
+2) Site Availability/Scalability
+
+If order consistency is something that we want then:
+   
+   We have to maintain single mid-service for processing order data.
+In other words we would have to check quantity and process order in a single transaction. The 
+second request should be in the same process but in a different transaction. With locking and transactions applied
+we will maintain data order consistency and  2nd request will pass/fail depending on the result of the 1st transaction.
+Having said that, adding above restriction will slow down our system as it will essentially mean that we are
+relying on a single server/NODE/DB.  This is specially a cost on SCALABILITY.
+
+
+For ensuring high availability/scalability we have to remove single point of failure. We never should be relying on single server/node/database.
+To be able to do that, we can analyze our business rules.
