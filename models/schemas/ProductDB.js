@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-  name: String,
-  product_collections: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Collection' }]
+  name: String
 }, { timestamps: true });
 
 

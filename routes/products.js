@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const Product = require('../models/Product');
-const productsDB = require('../models//schemas/ProductDB');
+const productsDB = require('../models/schemas/ProductDB');
 
 // index
 router.get('/', async (req, res) => {
@@ -18,8 +18,12 @@ router.get('/', async (req, res) => {
 
 // show
 router.get('/:id', async (req, res) => {
-  const product = await Product.getByID(req.params.id);
-  res.send(product);
+  try {
+    const product = await Product.getByID(req.params.id);
+    res.send(product);
+  } catch (e) {
+    res.status(404).send({ error: 'No record found' });
+  }
 });
 
 // create
@@ -38,6 +42,8 @@ router.put('/:id', async (req, res) => {
     .then((x) => {
       if (x && x.nModified && x.nModified > 0) {
         res.send('Object Updated');
+      } else {
+        res.status(404).send({ error: 'No record found' });
       }
     })
     .catch((e) => {
