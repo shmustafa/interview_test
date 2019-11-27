@@ -1,0 +1,146 @@
+{
+	"variables": [],
+	"info": {
+		"name": "products",
+		"_postman_id": "67c7d1fa-048a-e74b-92d0-e6f85c33efd2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/products",
+			"request": {
+				"url": "http://localhost:8080/products",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/products",
+			"request": {
+				"url": "http://localhost:8080/products",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Product 2\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/products/5ddd834e818dd0309dcb5b49",
+			"request": {
+				"url": "http://localhost:8080/products/5ddd834e818dd0309dcb5b49",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/products/5ddec270a9c2971e7bb711af",
+			"request": {
+				"url": "http://localhost:8080/products/5ddec6a1e52a7822d295b6d2",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections",
+			"request": {
+				"url": "http://localhost:8080/collections",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections",
+			"request": {
+				"url": "http://localhost:8080/collections",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Collection 1\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections/5ddd852441680332fb1fbc93",
+			"request": {
+				"url": "http://localhost:8080/collections/5ddd852441680332fb1fbc93",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections/5ddec899a7327f23ecccc989",
+			"request": {
+				"url": "http://localhost:8080/collections/5ddec899a7327f23ecccc989",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections/5ddec899a7327f23ecccc989",
+			"request": {
+				"url": "http://localhost:8080/collections/5ddd852441680332fb1fbc93",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Update Name\",\n\t\"product_ids\": [\"5ddd834e818dd0309dcb5b49\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
