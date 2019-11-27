@@ -1,49 +1,33 @@
-let productsData = "./data/products.json";
-const fs = require("fs");
+const productsDB = require('./schemas/ProductDB');
+const collectionsDB = require('./schemas/CollectionDB');
 
-const getAll = () => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(productsData, "utf8", (err, f_data) => {
-      if (err) {
-        reject(err);
-      } else {
-        let data = JSON.parse(f_data);
-        if (data && data.length) {
-          for (let i = 0; i < data.length; i++) {
-            data[i]["product_collections"] = JSON.parse(
-              data[i]["product_collections"]
-            );
-          }
-        }
-        return resolve(data);
-      }
-    });
+const getAll = () => new Promise((resolve, reject) => {
+  productsDB.find({}, 'name', (err, products) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve(products);
   });
-};
+});
 
-const getByID = (id) => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(productsData, "utf8", (err, f_data) => {
-      if (err) {
-        reject(err);
-      } else {
-        let data = JSON.parse(f_data);
-        if (data && data.length) {
-          for (let i = 0; i < data.length; i++) {
-            if(data[i]['id'] == id){
-              data[i]["product_collections"] = JSON.parse(
-                data[i]["product_collections"]
-              );
-              return resolve(data[i]);
-            }
-          }
-          return resolve(null);
-        }else{
-          return resolve(null);
-        }
-      }
-    });
+const getByID = (id) => new Promise((resolve, reject) => {
+  productsDB.findOne({ _id: id }, 'name', async (err, product) => {
+    if (err) {
+      return reject(err);
+    }
+    product._doc.product_collections = await collectionsDB.find({ products: id }, 'name');
+    return resolve(product);
   });
-};
+});
 
-module.exports = { getAll, getByID };
+
+const create = (name) => new Promise((resolve, reject) => {
+  productsDB.create({ name }, (err, product) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve(product);
+  });
+});
+
+module.exports = { getAll, getByID, create };

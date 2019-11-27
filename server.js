@@ -2,12 +2,11 @@
  * Module dependencies.
  */
 const express = require('express');
-const path = require('path');
 const chalk = require('chalk');
 const compression = require('compression');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -19,6 +18,8 @@ dotenv.config({ path: '.env' });
  * Create Express server.
  */
 const app = express();
+app.use(bodyParser.json());
+
 
 /**
  * Connect to MongoDB.
@@ -35,33 +36,17 @@ mongoose.connection.on('error', (err) => {
 });
 
 
-
 /**
  * Express configuration.
  */
 app.set('host', '0.0.0.0');
 app.set('port', process.env.PORT || 8080);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 app.use(compression());
 
 
-/**
- * Error Handler.
- */
-if (process.env.NODE_ENV === 'development') {
-  // only use in development
-  app.use(errorHandler());
-} else {
-  app.use((err, req, res, next) => {
-    console.error(err);
-    res.status(500).send('Server Error');
-  });
-}
-
-var productRoutes = require('./routes/products');
-var collectionRoutes = require('./routes/collections');
+const productRoutes = require('./routes/products');
+const collectionRoutes = require('./routes/collections');
 
 app.use('/products', productRoutes);
 app.use('/collections', collectionRoutes);

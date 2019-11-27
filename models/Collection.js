@@ -1,38 +1,30 @@
-let collectionsData = "./data/collections.json";
-const fs = require("fs");
+const collectionDB = require('./schemas/CollectionDB');
 
-const getAll = () => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(collectionsData, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-        return err;
-      }
-      return resolve(JSON.parse(data));
-    });
+const getAll = () => new Promise((resolve, reject) => {
+  collectionDB.find({}, 'name', (err, collections) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve(collections);
   });
-};
+});
 
-const getByID = id => {
-  return new Promise((resolve, reject) => {
-    fs.readFile(collectionsData, "utf8", (err, f_data) => {
-      if (err) {
-        reject(err);
-      } else {
-        let data = JSON.parse(f_data);
-        if (data && data.length) {
-          for (let i = 0; i < data.length; i++) {
-            if (data[i]["id"] == id) {
-              return resolve(data[i]);
-            }
-          }
-          return resolve(null);
-        } else {
-          return resolve(null);
-        }
-      }
-    });
+const getByID = (id) => new Promise((resolve, reject) => {
+  collectionDB.findOne({ _id: id }, 'name', (err, collection) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve(collection);
   });
-};
+});
 
-module.exports = { getAll, getByID };
+const create = (name) => new Promise((resolve, reject) => {
+  collectionDB.create({ name }, (err, collection) => {
+    if (err) {
+      return reject(err);
+    }
+    return resolve(collection);
+  });
+});
+
+module.exports = { getAll, getByID, create };
