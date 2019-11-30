@@ -34,6 +34,7 @@ router.post('/', async (req, res) => {
 });
 
 // update collections
+router.put('/', async (req, res) => {
   const { collections } = req.body;
   const collectionKeys = Object.keys(collections);
   // use bulk insert

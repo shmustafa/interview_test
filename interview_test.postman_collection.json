@@ -41,7 +41,7 @@
 		{
 			"name": "http://localhost:8080/products/5ddd834e818dd0309dcb5b49",
 			"request": {
-				"url": "http://localhost:8080/products/5ddd834e818dd0309dcb5b49",
+				"url": "http://localhost:8080/products/EDD77672-58AC-499A-9C0C-651401CA5BDE",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -137,6 +137,26 @@
 				"body": {
 					"mode": "raw",
 					"raw": "{\n\t\"name\": \"Update Name\",\n\t\"product_ids\": [\"5ddd834e818dd0309dcb5b49\"]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/collections",
+			"request": {
+				"url": "http://localhost:8080/collections",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n\t\"collections\":{\n\t  \"1C2B6065-D4C5-4147-A028-6FD142F8879E\": {\n\t    \"product_ids\": [\"EDD77672-58AC-499A-9C0C-651401CA5BDE\", \"B32DED2B-0D77-4CD8-AD4A-04719A18F8F4\"]\n\t  },\n\t  \"1DB33E6A-2BB4-4988-9E04-BB976FCEEC8B\":{\n\t    \"product_ids\": [\"EDD77672-58AC-499A-9C0C-651401CA5BDE\"]\n\t  }\n    }\n}"
 				},
 				"description": ""
 			},
