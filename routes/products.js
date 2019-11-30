@@ -22,7 +22,7 @@ router.get('/:id', async (req, res) => {
     const product = await Product.getByID(req.params.id);
     res.send(product);
   } catch (e) {
-    res.status(404).send({ error: 'No record found' });
+    res.status(404).send({ error: e.message });
   }
 });
 

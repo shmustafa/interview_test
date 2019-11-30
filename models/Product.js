@@ -14,8 +14,10 @@ const getByID = (id) => new Promise((resolve, reject) => {
   productsDB.findOne({ _id: id }, 'name', async (err, product) => {
     if (err) {
       return reject(err);
+    } if (!product) {
+      return reject(new Error('No record found'));
     }
-    product._doc.product_collections = await collectionsDB.find({ products: id }, 'name');
+    product._doc.product_collections = await collectionsDB.find({ products: id }, 'name priority url');
     return resolve(product);
   });
 });
