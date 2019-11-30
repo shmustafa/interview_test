@@ -33,6 +33,23 @@ router.post('/', async (req, res) => {
   });
 });
 
+// update collections
+  const { collections } = req.body;
+  const collectionKeys = Object.keys(collections);
+  // use bulk insert
+  const promises = collectionKeys.map((c) => collectionDB
+    .updateOne({ _id: c }, { products: collections[c].product_ids })
+    .exec());
+
+  Promise.all(promises)
+    .then(() => {
+      res.send({ status: 'Updated' });
+    })
+    .catch((e) => {
+      res.status(405).send({ error: e.message });
+    });
+});
+
 // update
 router.put('/:id', async (req, res) => {
   const { name } = req.body;
